@@ -30,7 +30,8 @@ print(query)
 
 print(document[index])
 
- 
+print("the similary score is ",score)
+
 
 
 
