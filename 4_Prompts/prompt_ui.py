@@ -1,0 +1,41 @@
+from langchain_openai import chat_models
+from langchain_openai import ChatOpenAI
+import streamlit as st
+from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
+
+load_dotenv()
+
+st.header("Reasearch Tool")
+model=ChatOpenAI(model='gpt-4')
+
+paper_input = st.selectbox( "Select Research Paper Name", ["Attention Is All You Need", "BERT: Pre-training of Deep Bidirectional Transformers", "GPT-3: Language Models are Few-Shot Learners", "Diffusion Models Beat GANs on Image Synthesis"] )
+
+style_input = st.selectbox( "Select Explanation Style", ["Beginner-Friendly", "Technical", "Code-Oriented", "Mathematical"] ) 
+
+length_input = st.selectbox( "Select Explanation Length", ["Short (1-2 paragraphs)", "Medium (3-5 paragraphs)", "Long (detailed explanation)"] )
+
+template=PromptTemplate(
+
+template = """
+Explain the research paper "{paper_input}".
+
+Style: {style_input}
+Length: {length_input}
+
+Provide a clear and well-structured explanation according to the selected style and length.
+
+""",
+input_variables=['paper_input','style_input','length_input']
+)
+prompt = template.invoke({
+    'paper_input':paper_input,
+    'style_input':style_input,
+    'length_input':length_input
+})
+
+
+
+if st.button("summarize"):
+    result=model.invoke(prompt)
+    st.write(result.content)
