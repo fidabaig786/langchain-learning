@@ -20,4 +20,3 @@ result=structured_result.invoke("what is the movie 'the godfather' about?")
 print(result)
 
 print(result['summary'])
-print(result['sentiment'])
