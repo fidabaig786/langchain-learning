@@ -23,6 +23,7 @@ class movie(BaseModel):
 Model=ChatOpenAI(model='gpt-4o-mini')
 
 
+
 structured_result=Model.with_structured_output(movie)
 
 result=structured_result.invoke("what is the movie 'the godfather' about?")
